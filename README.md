@@ -1,11 +1,11 @@
-# Digital Clock
+# Flutter Clock Challenge Submission
 
-This app is an example of a digital clock.
-It has a light theme and a dark theme.
-See the [Analog Clock](../analog_clock) if you'd like an example that displays the weather and location.
+This is my submission for the Flutter Clock Challenge.
+It is based on the digital clock sample project, but my own twist, making each digit 
+by animating rounded-edged blocks. Supports 24-hr format, and light and dark theme.
+Enjoy!
 
-<img src='digital.gif' width='350'>
+<img src='flutter_clock_challenge.png' width='350'>
 
-<img src='digital_dark.png' width='350'>
+<img src='flutter_clock_challenge_gif.gif' width='350'>
 
-<img src='digital_light.png' width='350'>
