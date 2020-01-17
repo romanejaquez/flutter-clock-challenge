@@ -3,11 +3,9 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'clock_widget.dart';
 
 enum _Element {
@@ -104,6 +102,9 @@ class _DigitalClockState extends State<DigitalClock> {
 
     return Container(
         color: colors[_Element.background],
+        // this is the widget I created, passing the hours, minutes and seconds
+        // currently only the hours and minutes are displayed
+        // and using the isTimeEllapsing for the ticking animation
         child: DigitalClockWidget(
           hours: hour,
           minutes: minute,

@@ -1,5 +1,9 @@
+// Copyright 2020
+// Roman Jaquez, Software Engineer
+// Twitter: @drcoderz
 import 'package:flutter/material.dart';
 
+// This is the wrapper class around my digital clock
 class DigitalClockWidget extends StatefulWidget {
   String hours;
   String minutes;
@@ -25,10 +29,18 @@ class DigitalClockWidgetState extends State<DigitalClockWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+    // parsing the digits out of the provided inputs
     var firstHourDigit = widget.hours[0];
     var secondHourDigit = widget.hours[1];
-    var thirdValue = widget.seconds[0];
-    var fourthValue = widget.seconds[1];
+    var thirdValue = widget.minutes[0];
+    var fourthValue = widget.minutes[1];
+
+    // want to test how the seconds work?
+    // comment the above two lines and parse the seconds' value off the widget property and do the following
+    // for the third and fourth value:
+    // var thirdValue = widget.seconds[0];
+    // var fourthValue = widget.seconds[1];
 
     vNumber1.value = int.parse(firstHourDigit);
     vNumber2.value = int.parse(secondHourDigit);
@@ -43,13 +55,15 @@ class DigitalClockWidgetState extends State<DigitalClockWidget> {
           ClockWidget(widgetNumber: vNumber1),
           ClockWidget(widgetNumber: vNumber2),
           ClockWidget(
-              widgetNumber: ValueNotifier<int>(-1), isTimeIndicator: true, isTimeEllapsing: widget.isTimeEllapsing,),
+              widgetNumber: ValueNotifier<int>(0), isTimeIndicator: true, isTimeEllapsing: widget.isTimeEllapsing,),
           ClockWidget(widgetNumber: vNumber3),
           ClockWidget(widgetNumber: vNumber4),
         ]));
   }
 }
 
+// represents the animation for each individual digit
+// represented as a series of blocks with animations
 class ClockWidget extends StatefulWidget {
   bool isTimeIndicator;
   bool isTimeEllapsing;
@@ -60,6 +74,7 @@ class ClockWidget extends StatefulWidget {
   ClockWidgetState createState() => ClockWidgetState();
 }
 
+// enum representing all sides in the digit to be animated
 enum DigitalNumberSides {
   TopHorizontal,
   CenterHorizontal,
@@ -91,6 +106,10 @@ class ClockWidgetState extends State<ClockWidget> {
   final Container digitHorizontalContainer =
       Container(height: 40, decoration: numberBoxDecoration);
 
+  // this is the mapping that reprents which digits get to have a side displayed
+  // based on the composition of the digit widget
+  // i.e. number 0 gets the top, bottom, top left, top right, bottom left and bottom right container displayed
+  // while number one only gets the center top and center bottom container displayed
   Map<DigitalNumberSides, List<int>> digitalNumberSidesMapping = {
     DigitalNumberSides.TopHorizontal: [0, 2, 3, 5, 6, 7, 8, 9],
     DigitalNumberSides.CenterHorizontal: [2, 3, 4, 5, 6, 8, 9],
@@ -103,6 +122,7 @@ class ClockWidgetState extends State<ClockWidget> {
     DigitalNumberSides.CenterBottom: [1],
   };
 
+  // this mapping is to whether turn on or off one of the digit sides
   Map<DigitalNumberSides, bool> digitalNumberSideVisible = {
     DigitalNumberSides.TopHorizontal: false,
     DigitalNumberSides.CenterHorizontal: false,
@@ -120,6 +140,7 @@ class ClockWidgetState extends State<ClockWidget> {
     super.initState();
     onExecuteAnimations();
 
+    // upon a number changing, trigger its corresponding animation(s)
     widget.widgetNumber.addListener(() {
       onExecuteAnimations();
     });
